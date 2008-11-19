@@ -1,12 +1,7 @@
-/*
-select * from cp_prods_leg_tmp a
-where a.product_model like 'INFORMIX%'
-*/
-
-
 -- COMPUTERPROFILE
 
-drop table cp_prods_leg;
+drop table cp_prods_leg_old;
+rename cp_prods_leg to cp_prods_leg_old;
 create table cp_prods_leg as
 SELECT a.manufacturer || ' ' || a.product_model vendor_prod_code, 
 		a.product_model vendor_description, a.groupp,
