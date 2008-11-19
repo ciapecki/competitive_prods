@@ -11,7 +11,7 @@ computerprofile.cp_prods_leg,
 fairfax.fairfax_prod_descs_0508
 fairfax.fairfax_prods,
 fairfax.fairfax_prods_leg,
-kcierpisz.cnet_prods, 
+cnet.cnet_prods, 
 cnet.cnet_prods_leg,
 idg.idg_prods_names, 
 idg.idg_prods_leg,

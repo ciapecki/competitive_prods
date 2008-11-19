@@ -2,7 +2,9 @@ grant select on cnet_prods_leg_tmp to cnet;
 
 select * from cnet_prods_leg_tmp a where a.manuf is not null;
 
-drop table cnet_prods_leg;
+--CNET
+drop table cnet_prods_leg_old;
+rename cnet_prods_leg to cnet_prods_leg_old;
 create table cnet_prods_leg as
 SELECT a.vendor_prod_code, a.vendor_description, 
 		(case when upper(a.vendor_prod_code) like 'IBM%' then 'IBM' 
@@ -43,10 +45,4 @@ SELECT a.vendor_prod_code, a.vendor_description,
   FROM cnet_prods_leg_tmp a;
   grant select on cnet_prods_leg to public;
  
-  select * from cnet_prods_leg_tmp a
-  where a.manuf is not null
-   
-  select * from cnet_prods_leg a
-  where a.manufacturer is not null
-  
   
