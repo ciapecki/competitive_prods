@@ -36,9 +36,14 @@ grant select on fairfax_prods to fairfax;
 --create table fairfax_prod_descs as select * from fairfax_prod_descs2;
 
 --FAIRFAX
+drop table fairfax_prods_old;
+rename fairfax_prods to fairfax_prods_old;
+create table fairfax_prods as select * from kcierpisz.fairfax_prods;
+
+/*
 create table fairfax_prod_descs_0508 as select * from kcierpisz.fairfax_prod_descs_0508;
 grant select on fairfax_prod_descs_0508 to public;
-
+*/
 
 
 ----------------------

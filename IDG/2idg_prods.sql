@@ -1,30 +1,12 @@
---KCIEPRISZ
+
 -- IDG
-
-drop table idg_prods_bak;
-rename idg_prods to idg_prods_bak;
-
-create table idg_prods as
-select * from kcierpisz.idg_prods;
-
-grant select on idg_prods to public;							
-
-/*
-call extract_multiple_values('IDG.TBLCOMPANIES','IDG_PRODS','COMPANYID','OPERATINGSYSTEM',',');
-call extract_multiple_values('IDG.TBLCOMPANIES','IDG_PRODS','COMPANYID','DATABASESOFTWARE',',');
-call extract_multiple_values('IDG.TBLCOMPANIES','IDG_PRODS','COMPANYID','DEVELOPMENTTOOLS',',');
-call extract_multiple_values('IDG.TBLCOMPANIES','IDG_PRODS','COMPANYID','APPLICATIONS',',');
-*/
-
 
 update idg_prods a
 set a.vendor_prod_type = 'DBMS' where a.vendor_prod_type = 'DATABASESOFTWARE';
 commit;
 
---drop table idg_prods_names_bak;
---create table idg_prods_names_bak as select * from idg_prods_names;
-
-drop table idg_prods_names;
+drop table idg_prods_names_old;
+rename idg_prods_names to idg_prods_names_old;
 create table idg_prods_names as
 select a.site_id, a.vendor_prod_code,a.vendor_prod_type,
 		b.APPLICATIONNAME prod_name, c.CategoryName category_name 

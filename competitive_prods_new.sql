@@ -25,6 +25,8 @@ computerprofile.cp_im_matchout,
 kcierpisz.hh_im_matchout
 */
 
+-- KCIERPISZ
+
 drop table competitive_prods_tmp_old;
 rename competitive_prods_tmp to competitive_prods_tmp_old;
 create table competitive_prods_tmp
@@ -90,7 +92,8 @@ select * from competitive_prods_tmp
 --FAIRFAX
 	insert into competitive_prods_tmp nologging
 	select --'' dnb_duns_nbr, 
-        a.mcode, a.vendor_prod_code, a.vendor_prod_type vendor_description, 
+        --a.mcode, 
+		a.site_id, a.vendor_prod_code, a.vendor_prod_type vendor_description, 
         b."vendor_SCodeDesc" prod_description, 
 		b.manufacturer,b.model product_model, 
         b.oracle_tier3, b.oracle_tier4, b.oracle_tier5, b.oracle_tier6, 'FAIRFAX' vendor
@@ -114,7 +117,7 @@ select * from competitive_prods_tmp
 		  b.manufacturer manufacturer, b.model product_model, 
           b.oracle_tier3, b.oracle_tier4, b.oracle_tier5, b.oracle_tier6,
           'CNET' 
-          from cnet_prods a, cnet.cnet_prods_leg b
+          from cnet.cnet_prods a, cnet.cnet_prods_leg b
 	where a.vendor_prod_code = b.vendor_prod_code
 	and a.vendor_prod_type  = b.vendor_description   
 	and upper(a.vendor_prod_code) not in ('ORACLE','HYPERION','SIEBEL','PEOPLESOFT')
@@ -182,43 +185,45 @@ group by a.vendor;
 
 --select * from competitive_prods_tmp
 
+-- AFTER IM match!!!!
+
 drop table competitive_prods_tmp_duns;
 create table competitive_prods_tmp_duns nologging as
 select b.dnb_duns_nbr im_duns, a.*
 from competitive_prods_tmp a, fairfax.ff_4_im_0608_matchout b
 where a.vendor_site_id = b.company_id
 and a.vendor = 'FAIRFAX'
-and b.dnb_confidence_code >= 8
+and b.dnb_confidence_code >= 9
 union all
 select b.dnb_duns_nbr im_duns, a.*
 from competitive_prods_tmp a, idg.idg_4_im_0608_matchout b
 where a.vendor_site_id = b.company_id
 and a.vendor = 'IDG'
-and b.dnb_confidence_code >= 8
+and b.dnb_confidence_code >= 9
 union all
 select b.duns_number, a.*
 from competitive_prods_tmp a, tudla.tudla_prods_leg_tmp b
 where a.vendor_site_id = b.site_id_number
 and a.vendor = 'TUDLA'
-and b.confidence_code >= 8
+and b.confidence_code >= 9
 union all
 select b.dnb_duns_nbr im_duns, a.*
 from competitive_prods_tmp a, cnet.im202890_matchout b
 where a.vendor_site_id = b.company_id
 and a.vendor = 'CNET'
-and b.dnb_confidence_code >= 8
+and b.dnb_confidence_code >= 9
 union all
 select b.dnb_duns_nbr im_duns, a.*
 from competitive_prods_tmp a, computerprofile.cp_im_matchout b
 where a.vendor_site_id = b.company_id
 and a.vendor = 'CP'
-and b.dnb_confidence_code >= 8
+and b.dnb_confidence_code >= 9
 union all
 select b.dnb_duns_nbr im_duns, a.*
 from competitive_prods_tmp a, kcierpisz.hh_im_matchout b
 where a.vendor_site_id = b.company_id
 and a.vendor = 'HH'
-and b.dnb_confidence_code >= 8;
+and b.dnb_confidence_code >= 9;
 
 --select count(*) from  competitive_prods_tmp_duns -- 634.506 -- site_ids + duns numbers
 grant select on competitive_prods_tmp_duns to public;

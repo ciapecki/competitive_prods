@@ -15,6 +15,12 @@ call chrispack.extract_multiple_values('IDG.TBLCOMPANIES','IDG_PRODS','CompanyID
 call chrispack.extract_multiple_values('IDG.TBLCOMPANIES','IDG_PRODS','CompanyID','DEVELOPMENTTOOLS',',');
 
 grant select on idg_prods to idg;
+
+--IDG
+drop table idg_prods_old;
+rename idg_prods to idg_prods_old;
+create table idg_prods as select * from kcierpisz.idg_prods;
+grant select on idg_prods to public;							
 /*
 select * from idg_prods a, tblapplications b, tblApplicationsCat c, tblDatabase d, tblDatabasesCat e
 where a.vendor_prod_code = b."ApplicationCode" (+)
