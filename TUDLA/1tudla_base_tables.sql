@@ -11,7 +11,7 @@ drop table tudla_std_prod_final_bak;
 rename tudla_std_prod_final to tudla_std_prod_final_bak;
 create table tudla_std_prod_final as
 select distinct duns_number, bi, crm, erp, app_ibm, app_jde, app_microsoft, app_oracle,
-	   app_psft, app_sap, app_siebel, db2, oracle, ms_sql, site_id_number
+	   app_psft, app_sap, app_siebel, db2, oracle, ms_sql, site_id_number, confidence_code
 from lm_lad.tudla_std_prod_final@mktgcd_kcierpisz a;
 grant select on tudla_std_prod_final to tudla;
 

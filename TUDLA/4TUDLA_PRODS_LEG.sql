@@ -1,6 +1,5 @@
 --KCIERPISZ
 
-
 drop table tudla_prods_leg;
 create table tudla_prods_leg as
 SELECT distinct a.product_type vendor_prod_type, a.product_type category_name, a.product_code prod_name,
