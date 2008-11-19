@@ -1,20 +1,10 @@
 -- IDG
-select distinct a.* from idg_prods_leg_tmp a
-where a.prod_manufacturer is not null
-
-update idg_prods_leg_tmp a set 
-a.vendor_prod_type = 'DEVELOPMENTTOOLS' where a.vendor_prod_type = '"DevelopmentTools"';commit;
-update idg_prods_leg_tmp a set 
-a.vendor_prod_type = 'APPLICATIONS' where a.vendor_prod_type = '"Applications"';commit;
-update idg_prods_leg_tmp a set 
---a.vendor_prod_type = 'DATABASESOFTWARE' where a.vendor_prod_type = '"DatabaseSoftware"';commit;
-a.vendor_prod_type = 'DBMS' where a.vendor_prod_type = '"DatabaseSoftware"';commit;
-update idg_prods_leg_tmp a set 
-a.vendor_prod_type = 'OPERATINGSYSTEM' where a.vendor_prod_type = '"OperatingSystem"';commit;
+-- idg_prods_leg_tmp -> prepared by Sean
 
 --select * FROM idg_prods_leg_tmp
 
-drop table idg_prods_leg;
+drop table idg_prods_leg_bak;
+rename idg_prods_leg to idg_prods_leg_bak;
 create table idg_prods_leg as
 SELECT a.vendor_prod_type, a.category_name, a.prod_name,
       (case when upper(a.prod_name) like 'IBM%' then 'IBM' 

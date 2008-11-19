@@ -1,32 +1,21 @@
-create table tblCompanies as
-select * from kcierpisz.tblcompanies;
-grant select on tblCompanies to public;
+/* grant select on tblApplicationsCat to public
+*/
 
-create table tblApplications as
-select * from kcierpisz.tblApplications;
-grant select on tblApplications to public;
+select * from idg.tblcompanies
 
-grant select on tblApplicationsCat to public
-
-select * from user_tables
-
-select * from tblcompanies
-
-create table tblcomp1 as
-select * from tblcompanies a where rownum < 10
-
-select * from tblcomp1
-
---drop table idg_prods;
+--KCIERPISZ
+drop table idg_prods;
 create table idg_prods (site_id varchar2(100),
 							vendor_prod_code varchar2(100),
 							vendor_prod_type varchar2(100));
 							
-call extract_multiple_values('TBLCOMPANIES','IDG_PRODS','"CompanyID"','"Applications"',',');
-call extract_multiple_values('TBLCOMPANIES','IDG_PRODS','"CompanyID"','"DatabaseSoftware"',',');
-call extract_multiple_values('TBLCOMPANIES','IDG_PRODS','"CompanyID"','"OperatingSystem"',',');
-call extract_multiple_values('TBLCOMPANIES','IDG_PRODS','"CompanyID"','"DevelopmentTools"',',');
+call chrispack.extract_multiple_values('IDG.TBLCOMPANIES','IDG_PRODS','CompanyID','APPLICATIONS',',');
+call chrispack.extract_multiple_values('IDG.TBLCOMPANIES','IDG_PRODS','CompanyID','DATABASESOFTWARE',',');
+call chrispack.extract_multiple_values('IDG.TBLCOMPANIES','IDG_PRODS','CompanyID','OPERATINGSYSTEM',',');
+call chrispack.extract_multiple_values('IDG.TBLCOMPANIES','IDG_PRODS','CompanyID','DEVELOPMENTTOOLS',',');
 
+grant select on idg_prods to idg;
+/*
 select * from idg_prods a, tblapplications b, tblApplicationsCat c, tblDatabase d, tblDatabasesCat e
 where a.vendor_prod_code = b."ApplicationCode" (+)
 and b."CategoryID" = c."CategoryID" (+)
@@ -48,3 +37,4 @@ select * from idg_prods a
 where a.vendor_prod_type like '%Oper%'
 
 select * from user_tables
+*/

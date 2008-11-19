@@ -2,28 +2,20 @@
 -- IDG
 
 drop table idg_prods_bak;
-create table idg_prods_bak as select * from idg_prods;
---select count(*) from kcierpisz.idg_prods_bak; -- 97913
+rename idg_prods to idg_prods_bak;
 
-drop table idg_prods;
-create table idg_prods (site_id varchar2(100),
-							vendor_prod_code varchar2(100),
-							vendor_prod_type varchar2(100));
+create table idg_prods as
+select * from kcierpisz.idg_prods;
 
 grant select on idg_prods to public;							
 
---select * from SBARSIN.IDG_ORGS_MAY08
-/*							
-call chrispack.extract_multiple_values('SBARSIN.IDG_ORGS_MAY08','IDG_PRODS','COMPANYID','OPERATINGSYSTEM',',');
-call chrispack.extract_multiple_values('SBARSIN.IDG_ORGS_MAY08','IDG_PRODS','COMPANYID','DATABASESOFTWARE',';');
-call chrispack.extract_multiple_values('SBARSIN.IDG_ORGS_MAY08','IDG_PRODS','COMPANYID','DEVELOPMENTTOOLS',';');
-call chrispack.extract_multiple_values('SBARSIN.IDG_ORGS_MAY08','IDG_PRODS','COMPANYID','APPLICATIONS',';');
-*/
-
+/*
 call extract_multiple_values('IDG.TBLCOMPANIES','IDG_PRODS','COMPANYID','OPERATINGSYSTEM',',');
 call extract_multiple_values('IDG.TBLCOMPANIES','IDG_PRODS','COMPANYID','DATABASESOFTWARE',',');
 call extract_multiple_values('IDG.TBLCOMPANIES','IDG_PRODS','COMPANYID','DEVELOPMENTTOOLS',',');
 call extract_multiple_values('IDG.TBLCOMPANIES','IDG_PRODS','COMPANYID','APPLICATIONS',',');
+*/
+
 
 update idg_prods a
 set a.vendor_prod_type = 'DBMS' where a.vendor_prod_type = 'DATABASESOFTWARE';
