@@ -1,7 +1,6 @@
 --select * from hh_prods_leg_tmp
 
 drop table hh_prods_leg_old;
-
 rename hh_prods_leg to hh_prods_leg_old;
 --drop table hh_prods_leg;
 create table hh_prods_leg as
