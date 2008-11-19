@@ -8,6 +8,7 @@ server: JUPITER
 kcierpisz.hh_prods,
 kcierpisz.hh_prods_leg,
 computerprofile.cp_prods_leg,
+fairfax.fairfax_prod_descs_0508
 fairfax.fairfax_prods,
 fairfax.fairfax_prods_leg,
 kcierpisz.cnet_prods, 

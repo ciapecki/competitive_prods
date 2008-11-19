@@ -1,12 +1,10 @@
+--FAIRFAX
 create table fairfax_prods_leg_tmp as 
 select * from kcierpisz.fairfax_prods_leg_tmp
 
-select distinct a.* from fairfax_prods_leg_tmp a
-where a.manuf is not null
 
-select * from fairfax_prods_leg
-
-drop table fairfax_prods_leg;
+drop table fairfax_prods_leg_old;
+rename fairfax_prods_leg to fairfax_prods_leg_old;
 create table fairfax_prods_leg as
 SELECT a.vendor_prod_code, a.vendor_description, a."vendor_SCodeDesc",
        (case when upper(a."vendor_SCodeDesc") like 'IBM%' then 'IBM' 
@@ -50,12 +48,4 @@ SELECT a.vendor_prod_code, a.vendor_description, a."vendor_SCodeDesc",
        a.oracle_tier6
   FROM fairfax_prods_leg_tmp a;
   grant select on fairfax_prods_leg to public;
-  
-  select * from fairfax_prods_leg_tmp ---> mapping from Sean (xls file)
-  
-  select * from fairfax_prods_leg_tmp a
-  where a.manuf is not null
-  
-  select * from fairfax_prods_leg a
-  where a.manufacturer is not null
   
