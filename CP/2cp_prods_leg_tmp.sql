@@ -1,10 +1,12 @@
 --- COMPUTERPROFILE
 
-drop table cp_prods;
+drop table cp_prods_old;
+rename cp_prods to cp_prods_old;
 create table cp_prods as
 select 'CP' as vendor, s.ref_site, b.data_manufacturer manufacturer, b.data_model product_model, b.data_domain groupp
 from computerprofile.data_site s, computerprofile.data_product b
 where s.ref_site = b.ref_site;
+grant select on cp_prods to public;
 /*
 select a.groupp, count(*) from cp_prods a
 group by a.groupp
@@ -53,8 +55,8 @@ select distinct a.manufacturer, a.product_model, a.groupp,
  	  when a.groupp = 'INSURANCE' then 'n/a'
 	  end) oracle_tier6
 from cp_prods a
-order by a.groupp
+order by a.groupp;
 
-/*
-select * from cp_prods_leg_tmp
-*/
+grant select on cp_prods_leg_tmp to public;
+
+
