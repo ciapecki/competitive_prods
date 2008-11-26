@@ -190,13 +190,13 @@ group by a.vendor;
 drop table competitive_prods_tmp_duns;
 create table competitive_prods_tmp_duns nologging as
 select b.dnb_duns_nbr im_duns, a.*
-from competitive_prods_tmp a, fairfax.ff_4_im_0608_matchout b
+from competitive_prods_tmp a, fairfax.ff_im_matchout b
 where a.vendor_site_id = b.company_id
 and a.vendor = 'FAIRFAX'
 and b.dnb_confidence_code >= 9
 union all
 select b.dnb_duns_nbr im_duns, a.*
-from competitive_prods_tmp a, idg.idg_4_im_0608_matchout b
+from competitive_prods_tmp a, idg.idg_im_matchout b
 where a.vendor_site_id = b.company_id
 and a.vendor = 'IDG'
 and b.dnb_confidence_code >= 9
@@ -208,7 +208,7 @@ and a.vendor = 'TUDLA'
 and b.confidence_code >= 9
 union all
 select b.dnb_duns_nbr im_duns, a.*
-from competitive_prods_tmp a, cnet.im202890_matchout b
+from competitive_prods_tmp a, cnet.cnet_im_matchout b
 where a.vendor_site_id = b.company_id
 and a.vendor = 'CNET'
 and b.dnb_confidence_code >= 9
